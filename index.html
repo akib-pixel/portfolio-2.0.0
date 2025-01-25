@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahbub Al Hasan Akib - Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <!-- Font Awesome for Social Media Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'monospace', sans-serif;
+            background-color: black;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .comet {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            transform: rotate(-30deg);
+        }
+
+        .rocket {
+            position: absolute;
+            font-size: 30px;
+        }
+
+        .moon {
+            position: absolute;
+            font-size: 100px; /* Size of the moon emoji */
+            animation: glow 3s infinite alternate;
+        }
+
+        .satellite {
+            position: absolute;
+            font-size: 20px;
+            animation: orbit 10s linear infinite;
+        }
+
+        .meteorite {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: meteor 5s linear infinite;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg) translateX(100px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(100px) rotate(360deg);
+            }
+        }
+
+        @keyframes meteor {
+            0% {
+                transform: translateX(-100%) translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+            padding: 1.5rem; /* Increased padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem; /* Increased font size */
+            font-weight: bold;
+            color: #06b6d4;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 0 20px; /* Increased margin */
+            font-size: 1.2rem; /* Increased font size */
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .nav-links button:hover {
+            color: #06b6d4; /* Tailwind cyan-500 */
+            transform: scale(1.1);
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 0 1rem;
+        }
+
+        .hero img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            max-width: 1000px; /* Increased width */
+            margin-bottom: 1rem;
+            color: #06b6d4; /* Tailwind cyan-500 */
+            font-size: 2.5rem;
+            animation: float 6s ease-in-out infinite;
+            padding: 0 2rem; /* Added padding for better spacing */
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .explore-btn {
+            background-color: #06b6d4;
+            color: black;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .explore-btn:hover {
+            background-color: #0891b2; /* Tailwind cyan-600 */
+            transform: scale(1.1);
+        }
+
+        .projects, .blog, .about {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #06b6d4;
+            font-size: 2.25rem;
+        }
+
+        .project-grid, .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card, .blog-card {
+            background-color: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .project-card:hover, .blog-card:hover {
+            border-color: #06b6d4;
+        }
+
+        .project-icon, .blog-icon {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title, .blog-title {
+            color: #06b6d4;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag, .topic-tag {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            margin: 0.25rem;
+            display: inline-block;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.5);
+            padding: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .social-icon:hover {
+            color: #06b6d4;
+            transform: scale(1.2);
+        }
+
+        .footer {
+            background-color: black;
+            color: #9ca3af;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .about-content {
+            background-color: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .about-content:hover {
+            border-color: #06b6d4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-links button {
+                margin: 10px 0;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 1.8rem; /* Adjusted for tablets */
+                max-width: 90%; /* Adjusted for smaller screens */
+            }
+
+            .explore-btn {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-grid, .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem; /* Adjusted for phones */
+                max-width: 90%; /* Adjusted for smaller screens */
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .project-grid, .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="starBackground"></div>
+    <div class="background" id="rocketBackground"></div>
+    <div class="moon" id="moon">🌕</div> <!-- Moon Emoji -->
+    <div class="satellite" id="satellite1">🛰️</div> <!-- Satellite 1 -->
+    <div class="satellite" id="satellite2">🛰️</div> <!-- Satellite 2 -->
+
+    <nav class="navbar">
+        <div class="logo">🚀 Mahbub Al Hasan Akib</div>
+        <div class="menu-icon" onclick="toggleNav()">☰</div>
+        <div class="nav-links" id="navLinks">
+            <button onclick="scrollToSection('home')">Home</button>
+            <button onclick="scrollToSection('about')">About</button>
+            <button onclick="scrollToSection('projects')">Projects</button>
+            <button onclick="scrollToSection('blog')">Blog</button>
+            <button onclick="scrollToSection('skills')">Skills</button>
+            <button onclick="scrollToSection('contact')">Contact</button>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <img src="./image/Remove background project-photoaidcom-cropped.png" alt="Mahbub Al Hasan Akib">
+        <h1 class="hero-title">
+            🚀 Aspiring Electrical & Electronics Engineer | 🤖 Robotics & AI Enthusiast | 🔭 Space & Cosmology Explorer | 📚 Lifelong Learner of Programming, Machine Learning, Django | 💡 Innovating for a Better Tomorrow
+        </h1>
+        <a href="#projects" class="explore-btn">Explore Projects 🛰️</a>
+    </section>
+
+    <section id="about" class="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <p>Hi, I'm Mahbub Al Hasan Akib, a passionate enthusiast in programming, electronics, and robotics. Currently pursuing my Electronics studies at a polytechnic, I am deeply committed to exploring the intersection of technology and innovation. My interests span across machine learning, robotics, space exploration, and software development, and I constantly strive to push the boundaries of my knowledge in these fields. I have hands-on experience working on projects such as gesture-controlled robotic arms, IOT, and electronic systems development. I'm also keen on applying my skills to practical innovations, with a strong interest in research and development in Electrical and Electronics Engineering (EEE). Beyond technical pursuits, I enjoy reading books on diverse topics, including history, space, and technology. I'm also focused on improving my English communication skills and continually enhancing my expertise in electronics, machine learning, deep learning & Django. My goal is to contribute to groundbreaking innovations and create solutions that make a meaningful impact on the world.</p>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2 class="section-title">🚀 Innovative Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-icon">🤖</div>
+                <h3 class="project-title">Gesture-Controlled Robotic Arm</h3>
+                <p>Advanced robotic arm using ESP32, ESP-IDF, Python with OpenCV and MediaPipe for precise gesture recognition and control.</p>
+                <div class="technologies">
+                    <span class="tech-tag">ESP32</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">MediaPipe</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🌐</div>
+                <h3 class="project-title">English-to-Bangla Translation Device</h3>
+                <p>Innovative machine learning-powered translation device bridging language barriers.</p>
+                <div class="technologies">
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">NLP</span>
+                    <span class="tech-tag">Embedded Systems</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="blog">
+        <h2 class="section-title">📚 Thoughts & Reflections</h2>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-icon">📖</div>
+                <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
+                <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
+                <span class="topic-tag">Islamic History</span>
+            </div>
+            <div class="blog-card">
+                <div class="blog-icon">💻</div>
+                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
+                <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
+                <span class="topic-tag">Programming</span>
+            </div>
+            <div class="blog-card">
+                <div class="blog-icon">🚀</div>
+                <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
+                <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
+                <span class="topic-tag">Space</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="social-icons">
+            <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://x.com/akib18773?t=VppJ2KtLWJLtfY3BAiINvg&s=09" class="social-icon" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.facebook.com/akib.hasan.7587370/" class="social-icon" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/mabub_al_hasan_akib/" class="social-icon" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:akibh0606.com" class="social-icon">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <div class="footer">
+            © 2025 Mahbub Al Hasan Akib. Hablu the great 😁
+        </div>
+    </footer>
+
+    <script>
+        // Star Background Animation
+        function createStarBackground() {
+            const background = document.getElementById('starBackground');
+            const starCount = 200;
+            const cometCount = 3;
+
+            // Create Stars
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const size = Math.random() * 2;
+                const delay = Math.random() * 5;
+
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+
+                background.appendChild(star);
+
+                // GSAP Animation for Stars
+                gsap.to(star, {
+                    scale: 1.5,
+                    opacity: 0.3,
+                    repeat: -1,
+                    yoyo: true,
+                    duration: 2,
+                    delay: delay
+                });
+            }
+
+            // Create Comets
+            for (let i = 0; i < cometCount; i++) {
+                const comet = document.createElement('div');
+                comet.classList.add('comet');
+                
+                const y = Math.random() * window.innerHeight;
+                const length = Math.random() * 200 + 100;
+                const speed = Math.random() * 5 + 2;
+
+                comet.style.top = `${y}px`;
+                comet.style.width = `${length}px`;
+
+                background.appendChild(comet);
+
+                // GSAP Animation for Comets
+                gsap.fromTo(comet, 
+                    { x: -100, opacity: 1 }, 
+                    {
+                        x: window.innerWidth + 100,
+                        opacity: 0,
+                        repeat: -1,
+                        duration: speed,
+                        delay: i * 3
+                    }
+                );
+            }
+        }
+
+        // Rocket Background Animation
+        function createRocketBackground() {
+            const background = document.getElementById('rocketBackground');
+            const rocketCount = 2; // Reduced to 2 rockets
+
+            for (let i = 0; i < rocketCount; i++) {
+                const rocket = document.createElement('div');
+                rocket.classList.add('rocket');
+                rocket.textContent = '🚀';
+                
+                const x = Math.random() * window.innerWidth;
+                const speed = Math.random() * 5 + 2;
+                const delay = Math.random() * 3;
+
+                rocket.style.left = `${x}px`;
+                rocket.style.top = `${window.innerHeight}px`;
+
+                background.appendChild(rocket);
+
+                // GSAP Animation for Rockets
+                gsap.to(rocket, {
+                    y: -100,
+                    x: [x, x + 50, x - 50],
+                    opacity: [0, 1, 0],
+                    repeat: -1,
+                    duration: speed * 3,
+                    delay: delay,
+                    ease: "power1.inOut"
+                });
+            }
+        }
+
+        // Satellite Animation
+        function createSatellites() {
+            const satellite1 = document.getElementById('satellite1');
+            const satellite2 = document.getElementById('satellite2');
+
+            // Position satellites
+            satellite1.style.top = '20%';
+            satellite1.style.left = '20%';
+
+            satellite2.style.top = '40%';
+            satellite2.style.left = '60%';
+        }
+
+        // Meteorite Animation
+        function createMeteorites() {
+            const meteoriteCount = 3;
+
+            for (let i = 0; i < meteoriteCount; i++) {
+                const meteorite = document.createElement('div');
+                meteorite.classList.add('meteorite');
+                
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const speed = Math.random() * 5 + 2;
+                const delay = Math.random() * 3;
+
+                meteorite.style.left = `${x}px`;
+                meteorite.style.top = `${y}px`;
+
+                document.body.appendChild(meteorite);
+
+                // GSAP Animation for Meteorites
+                gsap.to(meteorite, {
+                    x: window.innerWidth + 100,
+                    y: window.innerHeight + 100,
+                    opacity: 0,
+                    repeat: -1,
+                    duration: speed,
+                    delay: delay,
+                    ease: "power1.inOut"
+                });
+            }
+        }
+
+        // Moon Animation
+        function createMoon() {
+            const moon = document.getElementById('moon');
+            moon.style.top = '10%';
+            moon.style.left = '80%';
+        }
+
+        // Scroll to Section Function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Toggle Navbar Links on Mobile
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Initialize Animations
+        createStarBackground();
+        createRocketBackground();
+        createSatellites();
+        createMeteorites();
+        createMoon();
+
+        // Responsive Handling
+        window.addEventListener('resize', () => {
+            const starBackground = document.getElementById('starBackground');
+            const rocketBackground = document.getElementById('rocketBackground');
+            
+            starBackground.innerHTML = '';
+            rocketBackground.innerHTML = '';
+            
+            createStarBackground();
+            createRocketBackground();
+        });
+    </script>
+</body>
+</html>
