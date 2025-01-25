@@ -109,14 +109,14 @@
             background-color: rgba(0,0,0,0.5);
             backdrop-filter: blur(10px);
             z-index: 50;
-            padding: 1.5rem; /* Increased padding */
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 2rem; /* Increased font size */
+            font-size: 1.5rem;
             font-weight: bold;
             color: #06b6d4;
         }
@@ -131,13 +131,13 @@
             border: none;
             color: white;
             cursor: pointer;
-            margin: 0 20px; /* Increased margin */
-            font-size: 1.2rem; /* Increased font size */
+            margin: 0 10px;
+            font-size: 1rem;
             transition: color 0.3s, transform 0.2s;
         }
 
         .nav-links button:hover {
-            color: #06b6d4; /* Tailwind cyan-500 */
+            color: #06b6d4;
             transform: scale(1.1);
         }
 
@@ -161,20 +161,20 @@
         }
 
         .hero img {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1rem;
         }
 
         .hero-title {
-            max-width: 1000px; /* Increased width */
+            max-width: 90%;
             margin-bottom: 1rem;
-            color: #06b6d4; /* Tailwind cyan-500 */
-            font-size: 2.5rem;
+            color: #06b6d4;
+            font-size: 1.5rem;
             animation: float 6s ease-in-out infinite;
-            padding: 0 2rem; /* Added padding for better spacing */
+            padding: 0 1rem;
         }
 
         @keyframes float {
@@ -189,37 +189,37 @@
         .explore-btn {
             background-color: #06b6d4;
             color: black;
-            padding: 0.75rem 1.5rem;
+            padding: 0.5rem 1rem;
             border-radius: 9999px;
             text-decoration: none;
             transition: all 0.3s;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .explore-btn:hover {
-            background-color: #0891b2; /* Tailwind cyan-600 */
+            background-color: #0891b2;
             transform: scale(1.1);
         }
 
         .projects, .blog, .about {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 1rem;
+            padding: 2rem 1rem;
             position: relative;
             z-index: 10;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             color: #06b6d4;
-            font-size: 2.25rem;
+            font-size: 1.8rem;
         }
 
         .project-grid, .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
         .project-card, .blog-card {
@@ -227,7 +227,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 0.5rem;
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
             transition: border-color 0.3s;
         }
@@ -237,13 +237,14 @@
         }
 
         .project-icon, .blog-icon {
-            font-size: 2.25rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
         .project-title, .blog-title {
             color: #06b6d4;
             margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
         .tech-tag, .topic-tag {
@@ -253,18 +254,19 @@
             border-radius: 9999px;
             margin: 0.25rem;
             display: inline-block;
+            font-size: 0.9rem;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
             background-color: rgba(0,0,0,0.5);
-            padding: 1.5rem;
-            gap: 1.5rem;
+            padding: 1rem;
+            gap: 1rem;
         }
 
         .social-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
             text-decoration: none;
             color: white;
             transition: color 0.3s, transform 0.2s;
@@ -280,6 +282,7 @@
             color: #9ca3af;
             text-align: center;
             padding: 1rem;
+            font-size: 0.9rem;
         }
 
         .about-content {
@@ -287,7 +290,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 0.5rem;
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
             transition: border-color 0.3s;
         }
@@ -318,35 +321,33 @@
             }
 
             .hero-title {
-                font-size: 1.8rem; /* Adjusted for tablets */
-                max-width: 90%; /* Adjusted for smaller screens */
+                font-size: 1.5rem;
             }
 
             .explore-btn {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
 
             .project-grid, .blog-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
             .hero-title {
-                font-size: 1.5rem; /* Adjusted for phones */
-                max-width: 90%; /* Adjusted for smaller screens */
+                font-size: 1.2rem;
             }
 
             .section-title {
-                font-size: 1.8rem;
+                font-size: 1.3rem;
             }
 
             .project-grid, .blog-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
         }
     </style>
@@ -439,22 +440,22 @@
 
     <footer id="contact">
         <div class="social-icons">
-            <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
+            <a href="https://github.com/mahbub" class="social-icon" target="_blank">
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
+            <a href="https://linkedin.com/in/mahbub" class="social-icon" target="_blank">
                 <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://x.com/akib18773?t=VppJ2KtLWJLtfY3BAiINvg&s=09" class="social-icon" target="_blank">
+            <a href="https://twitter.com/mahbub" class="social-icon" target="_blank">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://www.facebook.com/akib.hasan.7587370/" class="social-icon" target="_blank">
+            <a href="https://facebook.com/mahbub" class="social-icon" target="_blank">
                 <i class="fab fa-facebook"></i>
             </a>
-            <a href="https://www.instagram.com/mabub_al_hasan_akib/" class="social-icon" target="_blank">
+            <a href="https://instagram.com/mahbub" class="social-icon" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="mailto:akibh0606.com" class="social-icon">
+            <a href="mailto:mahbub@example.com" class="social-icon">
                 <i class="fas fa-envelope"></i>
             </a>
         </div>
