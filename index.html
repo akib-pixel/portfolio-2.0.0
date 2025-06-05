@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Mahbub Al Hasan Akib - Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <!-- Font Awesome for Social Media Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -13,13 +12,14 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'monospace', sans-serif;
             background-color: black;
             color: white;
             line-height: 1.6;
             overflow-x: hidden;
+            overscroll-behavior: none; /* Prevent overscroll bounce */
         }
 
         .background {
@@ -48,46 +48,46 @@
 
         .rocket {
             position: absolute;
-            font-size: 30px;
+            font-size: 24px; /* Reduced for performance */
         }
 
         .moon {
             position: absolute;
-            font-size: 100px;
+            font-size: 80px; /* Reduced for smaller screens */
             animation: glow 3s infinite alternate;
         }
 
         .satellite {
             position: absolute;
-            font-size: 20px;
-            animation: orbit 10s linear infinite;
+            font-size: 18px; /* Reduced for performance */
+            animation: orbit 12s linear infinite;
         }
 
         .meteorite {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            animation: meteor 5s linear infinite;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            animation: meteor 6s linear infinite;
         }
 
         @keyframes glow {
             0% {
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5);
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.5);
             }
             100% {
-                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.8);
+                text-shadow: 0 0 16px rgba(255, 255, 255, 0.8), 0 0 32px rgba(255, 255, 255, 0.8);
             }
         }
 
         @keyframes orbit {
             0% {
-                transform: rotate(0deg) translateX(100px) rotate(0deg);
+                transform: rotate(0deg) translateX(80px) rotate(0deg);
             }
             100% {
-                transform: rotate(360deg) translateX(100px) rotate(360deg);
+                transform: rotate(360deg) translateX(80px) rotate(360deg);
             }
         }
 
@@ -103,24 +103,24 @@
         }
 
         .navbar {
-            position: fixed;
+            position: sticky; /* Changed to sticky for better scrolling */
             top: 0;
             width: 100%;
-            background-color: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            z-index: 50;
-            padding: 1rem;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 0.8rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: none; /* Disable any transitions */
+            transition: none;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #06b6d4;
-            transition: none; /* Disable any transitions */
+            transition: none;
         }
 
         .nav-links {
@@ -133,26 +133,25 @@
             border: none;
             color: white;
             cursor: pointer;
-            margin: 0 10px;
+            margin: 0 0.5rem;
             font-size: 1rem;
-            transition: color 0.3s, transform 0.2s;
+            transition: color 0.2s;
         }
 
         .nav-links button:hover {
             color: #06b6d4;
-            transform: scale(1.1);
         }
 
         .menu-icon {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: white;
             cursor: pointer;
-            transition: none; /* Disable any transitions */
+            transition: none;
         }
 
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -160,12 +159,12 @@
             text-align: center;
             position: relative;
             z-index: 10;
-            padding: 0 1rem;
+            padding: 1rem;
         }
 
         .hero img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1rem;
@@ -175,7 +174,7 @@
             max-width: 90%;
             margin-bottom: 1rem;
             color: #06b6d4;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             animation: float 6s ease-in-out infinite;
             padding: 0 1rem;
         }
@@ -185,7 +184,7 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-15px);
             }
         }
 
@@ -195,13 +194,12 @@
             padding: 0.5rem 1rem;
             border-radius: 9999px;
             text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1rem;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
         }
 
         .explore-btn:hover {
             background-color: #0891b2;
-            transform: scale(1.1);
         }
 
         .projects, .blog, .about {
@@ -214,20 +212,20 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: #06b6d4;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
 
         .project-grid, .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
         .project-card, .blog-card {
             background-color: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 0.5rem;
             padding: 1rem;
@@ -240,44 +238,43 @@
         }
 
         .project-icon, .blog-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
         }
 
         .project-title, .blog-title {
             color: #06b6d4;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
         }
 
         .tech-tag, .topic-tag {
             background-color: rgba(6, 182, 212, 0.1);
             color: #06b6d4;
-            padding: 0.25rem 0.5rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 9999px;
-            margin: 0.25rem;
+            margin: 0.2rem;
             display: inline-block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .social-icons {
             display: flex;
             justify-content: center;
-            background-color: rgba(0,0,0,0.5);
-            padding: 1rem;
+            background-color: rgba(0,0,0,0.6);
+            padding: 0.8rem;
             gap: 1rem;
         }
 
         .social-icon {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             text-decoration: none;
             color: white;
-            transition: color 0.3s, transform 0.2s;
+            transition: color 0.3s;
         }
 
         .social-icon:hover {
             color: #06b6d4;
-            transform: scale(1.2);
         }
 
         .footer {
@@ -285,12 +282,12 @@
             color: #9ca3af;
             text-align: center;
             padding: 1rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .about-content {
             background-color: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
             border: 1px solid rgba(6, 182, 212, 0.3);
             border-radius: 0.5rem;
             padding: 1rem;
@@ -303,82 +300,169 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .project-grid, .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
-                padding: 1rem;
-                animation: none; /* Ensure no animation on navbar */
-                transition: none; /* Disable any transitions */
+                align-items: flex-start;
+                padding: 0.8rem;
+                position: sticky;
+                animation: none;
+                transition: none;
             }
 
             .logo {
-                animation: none; /* Remove any animation for logo */
-                transition: none; /* Disable any transitions */
+                animation: none;
+                transition: none;
+                font-size: 1.3rem;
             }
 
             .nav-links {
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                transition: none; /* Disable any transitions */
+                transition: none;
             }
 
             .nav-links.active {
-                display: flex; /* Show nav-links when active */
+                display: flex;
             }
 
             .nav-links button {
-                margin: 10px 0;
-                transition: none; /* Disable transitions for buttons */
+                margin: 0.5rem 0;
+                font-size: 0.95rem;
+                transition: none;
             }
 
             .nav-links button:hover {
-                transform: none; /* Disable scale transform on hover */
+                transform: none;
             }
 
             .menu-icon {
                 display: block;
-                transition: none; /* Disable any transitions */
+                position: absolute;
+                top: 0.8rem;
+                right: 1rem;
             }
 
-            .hero-title {
-                font-size: 1.5rem;
+            .hero {
+                min-height: 80vh;
+                padding: 1rem;
             }
 
-            .explore-btn {
-                font-size: 0.9rem;
+            .hero img {
+                width: 100px;
+                height: 100px;
             }
 
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .project-grid, .blog-grid {
-                grid-template-columns: 1fr; /* Stack cards vertically */
-                gap: 1rem;
-            }
-
-            .project-card, .blog-card {
-                max-width: 100%; /* Ensure full width for cards */
-            }
-        }
-
-        @media (max-width: 480px) {
             .hero-title {
                 font-size: 1.2rem;
             }
 
+            .explore-btn {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+
             .section-title {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
 
             .project-grid, .blog-grid {
-                grid-template-columns: 1fr; /* Stack cards vertically */
+                grid-template-columns: 1fr;
                 gap: 1rem;
             }
 
             .project-card, .blog-card {
-                max-width: 100%; /* Ensure full width for cards */
+                max-width: 100%;
+            }
+
+            .moon {
+                font-size: 60px;
+            }
+
+            .satellite {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links button {
+                font-size: 0.9rem;
+            }
+
+            .hero-title {
+                font-size: 1rem;
+            }
+
+            .hero img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .explore-btn {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.7rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .project-grid, .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .project-card, .blog-card {
+                padding: 0.8rem;
+            }
+
+            .project-title, .blog-title {
+                font-size: 1rem;
+            }
+
+            .tech-tag, .topic-tag {
+                font-size: 0.8rem;
+            }
+
+            .social-icon {
+                font-size: 1.2rem;
+            }
+
+            .footer {
+                font-size: 0.8rem;
+            }
+
+            .moon {
+                font-size: 50px;
+            }
+
+            .satellite {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-grid, .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             }
         }
     </style>
@@ -408,13 +492,13 @@
         <h1 class="hero-title">
             🚀 Aspiring Electrical & Electronics Engineer | 🤖 Robotics & AI Enthusiast | 🔭 Space & Cosmology Explorer | 📚 Lifelong Learner of Programming, Machine Learning, Django | 💡 Innovating for a Better Tomorrow
         </h1>
-        <a href="#projects" class="explore-btn">Explore Projects 🔎</a>
+        <a href="#projects" class="explore-btn">Explore Projects 🛰️</a>
     </section>
 
     <section id="about" class="about">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-            <p>Hi, I'm Mahbub Al Hasan Akib, a passionate enthusiast in programming, electronics, and robotics. Currently pursuing my Electronics studies at a polytechnic, I am deeply committed to exploring the intersection of technology and innovation. My interests span across machine learning, robotics, space exploration, and software development, and I constantly strive to push the boundaries of my knowledge in these fields. I have hands-on experience working on projects such as gesture-controlled robotic arms, IOT, and electronic systems development. I'm also keen on applying my skills to practical innovations, with a strong interest in research and development in Electrical and Electronics Engineering (EEE). Beyond technical pursuits, I enjoy reading books on diverse topics, including history, space, and technology. I'm also focused on improving my English communication skills and continually enhancing my expertise in electronics, machine learning, deep learning & Django. My goal is to contribute to groundbreaking innovations and create solutions that make a meaningful impact on the world.</p>
+            <p>Hi, I'm Mahbub Al Hasan Akib, a passionate enthusiast in programming, electronics, and robotics. Currently pursuing my Electronics studies at a polytechnic, I am deeply committed to exploring the intersection of technology and innovation. My interests span across machine learning, robotics, space exploration, and software development, and I constantly strive to push the boundaries of my knowledge in these fields. I have hands-on experience working on projects such as gesture-controlled robotic arms, IoT, and electronic systems development. I'm also keen on applying my skills to practical innovations, with a strong interest in research and development in Electrical and Electronics Engineering (EEE). Beyond technical pursuits, I enjoy reading books on diverse topics, including history, space, and technology. I'm also focused on improving my English communication skills and continually enhancing my expertise in electronics, machine learning, deep learning, and Django. My goal is to contribute to groundbreaking innovations and create solutions that make a meaningful impact on the world.</p>
         </div>
     </section>
 
@@ -456,7 +540,7 @@
             </div>
             <div class="blog-card">
                 <div class="blog-icon">💻</div>
-                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h Packers>
+                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
                 <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
                 <span class="topic-tag">Programming</span>
             </div>
@@ -496,21 +580,20 @@
     </footer>
 
     <script>
-        // Star Background Animation
+        // Optimize animations for smaller screens
         function createStarBackground() {
             const background = document.getElementById('starBackground');
-            const starCount = 200;
-            const cometCount = 3;
+            const isMobile = window.innerWidth <= 768;
+            const starCount = isMobile ? 100 : 200; // Reduce stars on mobile
+            const cometCount = isMobile ? 2 : 3; // Reduce comets on mobile
 
-            // Create Stars
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
                 const x = Math.random() * window.innerWidth;
                 const y = Math.random() * window.innerHeight;
-                const size = Math.random() * 2;
-                const delay = Math.random() * 5;
+                const size = Math.random() * 1.5;
+                const delay = Math.random() * 4;
 
                 star.style.left = `${x}px`;
                 star.style.top = `${y}px`;
@@ -519,10 +602,9 @@
 
                 background.appendChild(star);
 
-                // GSAP Animation for Stars
                 gsap.to(star, {
-                    scale: 1.5,
-                    opacity: 0.3,
+                    scale: 1.3,
+                    opacity: 0.4,
                     repeat: -1,
                     yoyo: true,
                     duration: 2,
@@ -530,101 +612,90 @@
                 });
             }
 
-            // Create Comets
             for (let i = 0; i < cometCount; i++) {
                 const comet = document.createElement('div');
                 comet.classList.add('comet');
-                
                 const y = Math.random() * window.innerHeight;
-                const length = Math.random() * 200 + 100;
-                const speed = Math.random() * 5 + 2;
+                const length = Math.random() * 150 + 50;
+                const speed = Math.random() * 4 + 2;
 
                 comet.style.top = `${y}px`;
                 comet.style.width = `${length}px`;
 
                 background.appendChild(comet);
 
-                // GSAP Animation for Comets
                 gsap.fromTo(comet, 
-                    { x: -100, opacity: 1 }, 
+                    { x: -100, opacity: 0.8 }, 
                     {
                         x: window.innerWidth + 100,
                         opacity: 0,
                         repeat: -1,
                         duration: speed,
-                        delay: i * 3
+                        delay: i * 2
                     }
                 );
             }
         }
 
-        // Rocket Background Animation
         function createRocketBackground() {
             const background = document.getElementById('rocketBackground');
-            const rocketCount = 2;
+            const isMobile = window.innerWidth <= 768;
+            const rocketCount = isMobile ? 1 : 2; // Reduce rockets on mobile
 
             for (let i = 0; i < rocketCount; i++) {
                 const rocket = document.createElement('div');
                 rocket.classList.add('rocket');
                 rocket.textContent = '🚀';
-                
                 const x = Math.random() * window.innerWidth;
-                const speed = Math.random() * 5 + 2;
-                const delay = Math.random() * 3;
+                const speed = Math.random() * 4 + 2;
+                const delay = Math.random() * 2;
 
                 rocket.style.left = `${x}px`;
                 rocket.style.top = `${window.innerHeight}px`;
 
                 background.appendChild(rocket);
 
-                // GSAP Animation for Rockets
                 gsap.to(rocket, {
                     y: -100,
-                    x: [x, x + 50, x - 50],
-                    opacity: [0, 1, 0],
+                    x: [x, x + 30, x - 30],
+                    opacity: [0, 0.8, 0],
                     repeat: -1,
-                    duration: speed * 3,
+                    duration: speed * 2,
                     delay: delay,
                     ease: "power1.inOut"
                 });
             }
         }
 
-        // Satellite Animation
         function createSatellites() {
             const satellite1 = document.getElementById('satellite1');
             const satellite2 = document.getElementById('satellite2');
-
-            // Position satellites
             satellite1.style.top = '20%';
             satellite1.style.left = '20%';
-
             satellite2.style.top = '40%';
             satellite2.style.left = '60%';
         }
 
-        // Meteorite Animation
         function createMeteorites() {
-            const meteoriteCount = 3;
+            const isMobile = window.innerWidth <= 768;
+            const meteoriteCount = isMobile ? 2 : 3; // Reduce meteorites on mobile
 
             for (let i = 0; i < meteoriteCount; i++) {
                 const meteorite = document.createElement('div');
                 meteorite.classList.add('meteorite');
-                
                 const x = Math.random() * window.innerWidth;
                 const y = Math.random() * window.innerHeight;
-                const speed = Math.random() * 5 + 2;
-                const delay = Math.random() * 3;
+                const speed = Math.random() * 4 + 2;
+                const delay = Math.random() * 2;
 
                 meteorite.style.left = `${x}px`;
                 meteorite.style.top = `${y}px`;
 
                 document.body.appendChild(meteorite);
 
-                // GSAP Animation for Meteorites
                 gsap.to(meteorite, {
-                    x: window.innerWidth + 100,
-                    y: window.innerHeight + 100,
+                    x: window.innerWidth + 50,
+                    y: window.innerHeight + 50,
                     opacity: 0,
                     repeat: -1,
                     duration: speed,
@@ -634,42 +705,44 @@
             }
         }
 
-        // Moon Animation
         function createMoon() {
             const moon = document.getElementById('moon');
             moon.style.top = '10%';
             moon.style.left = '80%';
         }
 
-        // Scroll to Section Function
         function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Toggle Navbar Links on Mobile
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
-        // Initialize Animations
+        // Initialize animations
         createStarBackground();
         createRocketBackground();
         createSatellites();
         createMeteorites();
         createMoon();
 
-        // Responsive Handling
+        // Handle resize for performance
         window.addEventListener('resize', () => {
             const starBackground = document.getElementById('starBackground');
             const rocketBackground = document.getElementById('rocketBackground');
-            
             starBackground.innerHTML = '';
             rocketBackground.innerHTML = '';
-            
             createStarBackground();
             createRocketBackground();
         });
+
+        // Prevent default touchmove behavior to avoid scroll issues
+        document.addEventListener('touchmove', (e) => {
+            if (e.target.closest('.navbar') || e.target.closest('.nav-links')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
