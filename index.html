@@ -53,7 +53,7 @@
 
         .moon {
             position: absolute;
-            font-size: 100px; /* Size of the moon emoji */
+            font-size: 100px;
             animation: glow 3s infinite alternate;
         }
 
@@ -113,12 +113,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: none; /* Disable any transitions */
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
             color: #06b6d4;
+            transition: none; /* Disable any transitions */
         }
 
         .nav-links {
@@ -146,6 +148,7 @@
             font-size: 1.5rem;
             color: white;
             cursor: pointer;
+            transition: none; /* Disable any transitions */
         }
 
         .hero {
@@ -304,20 +307,38 @@
             .navbar {
                 flex-direction: column;
                 padding: 1rem;
+                animation: none; /* Ensure no animation on navbar */
+                transition: none; /* Disable any transitions */
+            }
+
+            .logo {
+                animation: none; /* Remove any animation for logo */
+                transition: none; /* Disable any transitions */
             }
 
             .nav-links {
                 display: none;
                 flex-direction: column;
                 width: 100%;
+                transition: none; /* Disable any transitions */
+            }
+
+            .nav-links.active {
+                display: flex; /* Show nav-links when active */
             }
 
             .nav-links button {
                 margin: 10px 0;
+                transition: none; /* Disable transitions for buttons */
+            }
+
+            .nav-links button:hover {
+                transform: none; /* Disable scale transform on hover */
             }
 
             .menu-icon {
                 display: block;
+                transition: none; /* Disable any transitions */
             }
 
             .hero-title {
@@ -333,7 +354,12 @@
             }
 
             .project-grid, .blog-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: 1fr; /* Stack cards vertically */
+                gap: 1rem;
+            }
+
+            .project-card, .blog-card {
+                max-width: 100%; /* Ensure full width for cards */
             }
         }
 
@@ -347,7 +373,12 @@
             }
 
             .project-grid, .blog-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                grid-template-columns: 1fr; /* Stack cards vertically */
+                gap: 1rem;
+            }
+
+            .project-card, .blog-card {
+                max-width: 100%; /* Ensure full width for cards */
             }
         }
     </style>
@@ -355,9 +386,9 @@
 <body>
     <div class="background" id="starBackground"></div>
     <div class="background" id="rocketBackground"></div>
-    <div class="moon" id="moon">🌕</div> <!-- Moon Emoji -->
-    <div class="satellite" id="satellite1">🛰️</div> <!-- Satellite 1 -->
-    <div class="satellite" id="satellite2">🛰️</div> <!-- Satellite 2 -->
+    <div class="moon" id="moon">🌕</div>
+    <div class="satellite" id="satellite1">🛰️</div>
+    <div class="satellite" id="satellite2">🛰️</div>
 
     <nav class="navbar">
         <div class="logo">🚀 Mahbub Al Hasan Akib</div>
@@ -377,7 +408,7 @@
         <h1 class="hero-title">
             🚀 Aspiring Electrical & Electronics Engineer | 🤖 Robotics & AI Enthusiast | 🔭 Space & Cosmology Explorer | 📚 Lifelong Learner of Programming, Machine Learning, Django | 💡 Innovating for a Better Tomorrow
         </h1>
-        <a href="#projects" class="explore-btn">Explore Projects 🛰️</a>
+        <a href="#projects" class="explore-btn">Explore Projects 🔎</a>
     </section>
 
     <section id="about" class="about">
@@ -425,7 +456,7 @@
             </div>
             <div class="blog-card">
                 <div class="blog-icon">💻</div>
-                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
+                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h Packers>
                 <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
                 <span class="topic-tag">Programming</span>
             </div>
@@ -440,22 +471,22 @@
 
     <footer id="contact">
         <div class="social-icons">
-            <a href="https://github.com/mahbub" class="social-icon" target="_blank">
+            <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://linkedin.com/in/mahbub" class="social-icon" target="_blank">
+            <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
                 <i class="fab fa-linkedin"></i>
             </a>
-            <a href="https://twitter.com/mahbub" class="social-icon" target="_blank">
+            <a href="https://x.com/akib18773" class="social-icon" target="_blank">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://facebook.com/mahbub" class="social-icon" target="_blank">
+            <a href="https://www.facebook.com/akib.hasan.7587370" class="social-icon" target="_blank">
                 <i class="fab fa-facebook"></i>
             </a>
-            <a href="https://instagram.com/mahbub" class="social-icon" target="_blank">
+            <a href="https://www.instagram.com/mabub_al_hasan_akib/?hl=en" class="social-icon" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="mailto:mahbub@example.com" class="social-icon">
+            <a href="mailto:akibh0606@gmail.com" class="social-icon">
                 <i class="fas fa-envelope"></i>
             </a>
         </div>
@@ -530,7 +561,7 @@
         // Rocket Background Animation
         function createRocketBackground() {
             const background = document.getElementById('rocketBackground');
-            const rocketCount = 2; // Reduced to 2 rockets
+            const rocketCount = 2;
 
             for (let i = 0; i < rocketCount; i++) {
                 const rocket = document.createElement('div');
@@ -618,7 +649,7 @@
         // Toggle Navbar Links on Mobile
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.classList.toggle('active');
         }
 
         // Initialize Animations
