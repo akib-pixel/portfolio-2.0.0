@@ -300,6 +300,116 @@
             border-color: #06b6d4;
         }
 
+        /* Blog Page Specific Styles */
+        .blog-page {
+            display: none;
+        }
+        
+        .blog-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .create-post-btn {
+            display: block;
+            margin: 1rem auto;
+            background-color: #06b6d4;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .create-post-btn:hover {
+            background-color: #0891b2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(17, 24, 39, 0.9);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #06b6d4;
+        }
+
+        .modal-content h2 {
+            color: #06b6d4;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.3rem;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'monospace', sans-serif;
+        }
+
+        .modal-content textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .modal-content input[type="file"] {
+            padding: 0;
+        }
+
+        .modal-content .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .modal-content button {
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .modal-content .submit-btn {
+            background-color: #06b6d4;
+            color: black;
+        }
+
+        .modal-content .submit-btn:hover {
+            background-color: #0891b2;
+        }
+
+        .modal-content .cancel-btn {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .modal-content .cancel-btn:hover {
+            background-color: #4b5563;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .project-grid, .blog-grid {
@@ -390,6 +500,11 @@
             .satellite {
                 font-size: 16px;
             }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -451,6 +566,16 @@
             .satellite {
                 font-size: 14px;
             }
+
+            .create-post-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .modal-content button {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
+            }
         }
 
         @media (min-width: 1200px) {
@@ -479,108 +604,207 @@
         <div class="logo">🚀 Mahbub Al Hasan Akib</div>
         <div class="menu-icon" onclick="toggleNav()">☰</div>
         <div class="nav-links" id="navLinks">
-            <button onclick="scrollToSection('home')">Home</button>
+            <button onclick="showPage('home')">Home</button>
             <button onclick="scrollToSection('about')">About</button>
             <button onclick="scrollToSection('projects')">Projects</button>
-            <a href="blog.html">Blog</a>
+            <button onclick="showPage('blog')">Blog</button>
             <button onclick="scrollToSection('skills')">Skills</button>
             <button onclick="scrollToSection('contact')">Contact</button>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <img src="./image/Remove background project-photoaidcom-cropped.png" alt="Mahbub Al Hasan Akib">
-        <h1 class="hero-title">
-            🚀 Aspiring Electrical & Electronics Engineer | 🤖 Robotics & AI Enthusiast | 🔭 Space & Cosmology Explorer | 📚 Lifelong Learner of Programming, Machine Learning, Django | 💡 Innovating for a Better Tomorrow
-        </h1>
-        <a href="#projects" class="explore-btn">Explore Projects 🛰️</a>
-    </section>
+    <!-- Home Page Content -->
+    <div id="home-page">
+        <section id="home" class="hero">
+            <img src="./image/Remove background project-photoaidcom-cropped.png" alt="Mahbub Al Hasan Akib">
+            <h1 class="hero-title">
+                🚀 Aspiring Electrical & Electronics Engineer | 🤖 Robotics & AI Enthusiast | 🔭 Space & Cosmology Explorer | 📚 Lifelong Learner of Programming, Machine Learning, Django | 💡 Innovating for a Better Tomorrow
+            </h1>
+            <a href="#projects" class="explore-btn">Explore Projects 🛰️</a>
+        </section>
 
-    <section id="about" class="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <p>Hi, I'm Mahbub Al Hasan Akib, a passionate enthusiast in programming, electronics, and robotics. Currently pursuing my Electronics studies at a polytechnic, I am deeply committed to exploring the intersection of technology and innovation. My interests span across machine learning, robotics, space exploration, and software development, and I constantly strive to push the boundaries of my knowledge in these fields. I have hands-on experience working on projects such as gesture-controlled robotic arms, IoT, and electronic systems development. I'm also keen on applying my skills to practical innovations, with a strong interest in research and development in Electrical and Electronics Engineering (EEE). Beyond technical pursuits, I enjoy reading books on diverse topics, including history, space, and technology. I'm also focused on improving my English communication skills and continually enhancing my expertise in electronics, machine learning, deep learning, and Django. My goal is to contribute to groundbreaking innovations and create solutions that make a meaningful impact on the world.</p>
-        </div>
-    </section>
+        <section id="about" class="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <p>Hi, I'm Mahbub Al Hasan Akib, a passionate enthusiast in programming, electronics, and robotics. Currently pursuing my Electronics studies at a polytechnic, I am deeply committed to exploring the intersection of technology and innovation. My interests span across machine learning, robotics, space exploration, and software development, and I constantly strive to push the boundaries of my knowledge in these fields. I have hands-on experience working on projects such as gesture-controlled robotic arms, IoT, and electronic systems development. I'm also keen on applying my skills to practical innovations, with a strong interest in research and development in Electrical and Electronics Engineering (EEE). Beyond technical pursuits, I enjoy reading books on diverse topics, including history, space, and technology. I'm also focused on improving my English communication skills and continually enhancing my expertise in electronics, machine learning, deep learning, and Django. My goal is to contribute to groundbreaking innovations and create solutions that make a meaningful impact on the world.</p>
+            </div>
+        </section>
 
-    <section id="projects" class="projects">
-        <h2 class="section-title">🚀 Innovative Projects</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <div class="project-icon">🤖</div>
-                <h3 class="project-title">Gesture-Controlled Robotic Arm</h3>
-                <p>Advanced robotic arm using ESP32, ESP-IDF, Python with OpenCV and MediaPipe for precise gesture recognition and control.</p>
-                <div class="technologies">
-                    <span class="tech-tag">ESP32</span>
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">OpenCV</span>
-                    <span class="tech-tag">MediaPipe</span>
+        <section id="projects" class="projects">
+            <h2 class="section-title">🚀 Innovative Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <div class="project-icon">🤖</div>
+                    <h3 class="project-title">Gesture-Controlled Robotic Arm</h3>
+                    <p>Advanced robotic arm using ESP32, ESP-IDF, Python with OpenCV and MediaPipe for precise gesture recognition and control.</p>
+                    <div class="technologies">
+                        <span class="tech-tag">ESP32</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">MediaPipe</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">🌐</div>
+                    <h3 class="project-title">English-to-Bangla Translation Device</h3>
+                    <p>Innovative machine learning-powered translation device bridging language barriers.</p>
+                    <div class="technologies">
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">Embedded Systems</span>
+                    </div>
                 </div>
             </div>
-            <div class="project-card">
-                <div class="project-icon">🌐</div>
-                <h3 class="project-title">English-to-Bangla Translation Device</h3>
-                <p>Innovative machine learning-powered translation device bridging language barriers.</p>
-                <div class="technologies">
-                    <span class="tech-tag">Machine Learning</span>
-                    <span class="tech-tag">NLP</span>
-                    <span class="tech-tag">Embedded Systems</span>
+        </section>
+
+        <section id="blog-section" class="blog">
+            <h2 class="section-title">📚 Thoughts & Reflections</h2>
+            <div class="blog-grid" id="blogGrid">
+                <div class="blog-card">
+                    <div class="blog-icon">📖</div>
+                    <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
+                    <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
+                    <span class="topic-tag">Islamic History</span>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-icon">💻</div>
+                    <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
+                    <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
+                    <span class="topic-tag">Programming</span>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-icon">🚀</div>
+                    <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
+                    <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
+                    <span class="topic-tag">Space</span>
+                </div>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <div class="social-icons">
+                <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://x.com/akib18773" class="social-icon" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/akib.hasan.7587370" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/mabub_al_hasan_akib/?hl=en" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:akibh0606@gmail.com" class="social-icon">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <div class="footer">
+                © 2025 Mahbub Al Hasan Akib. Hablu the great 😁
+            </div>
+        </footer>
+    </div>
+
+    <!-- Blog Page Content -->
+    <div id="blog-page" class="blog-page">
+        <section id="blog" class="blog">
+            <h2 class="section-title">📚 Thoughts & Reflections</h2>
+            <button class="create-post-btn" onclick="openModal()">Create Post ✍️</button>
+            <div class="blog-grid" id="blogGridFull">
+                <div class="blog-card">
+                    <div class="blog-icon">📖</div>
+                    <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
+                    <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
+                    <span class="topic-tag">Islamic History</span>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-icon">💻</div>
+                    <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
+                    <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
+                    <span class="topic-tag">Programming</span>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-icon">🚀</div>
+                    <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
+                    <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
+                    <span class="topic-tag">Space</span>
+                </div>
+            </div>
+        </section>
+
+        <div id="createPostModal" class="modal">
+            <div class="modal-content">
+                <h2>Create New Blog Post</h2>
+                <input type="text" id="blogTitle" placeholder="Blog Title" required>
+                <textarea id="blogContent" placeholder="Write your blog content here..." required></textarea>
+                <input type="text" id="blogTag" placeholder="Topic Tag (e.g., Programming)" required>
+                <input type="file" id="blogImage" accept="image/*">
+                <div class="btn-container">
+                    <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                    <button class="submit-btn" onclick="submitPost()">Publish</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="blog" class="blog">
-        <h2 class="section-title">📚 Thoughts & Reflections</h2>
-        <div class="blog-grid" id="blogGrid">
-            <div class="blog-card">
-                <div class="blog-icon">📖</div>
-                <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
-                <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
-                <span class="topic-tag">Islamic History</span>
+        <footer id="contact-blog">
+            <div class="social-icons">
+                <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://x.com/akib18773" class="social-icon" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/akib.hasan.7587370" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.instagram.com/mabub_al_hasan_akib/?hl=en" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:akibh0606@gmail.com" class="social-icon">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
-            <div class="blog-card">
-                <div class="blog-icon">💻</div>
-                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
-                <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
-                <span class="topic-tag">Programming</span>
+            <div class="footer">
+                © 2025 Mahbub Al Hasan Akib. Hablu the great 😁
             </div>
-            <div class="blog-card">
-                <div class="blog-icon">🚀</div>
-                <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
-                <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
-                <span class="topic-tag">Space</span>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="social-icons">
-            <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://x.com/akib18773" class="social-icon" target="_blank">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="https://www.facebook.com/akib.hasan.7587370" class="social-icon" target="_blank">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com/mabub_al_hasan_akib/?hl=en" class="social-icon" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="mailto:akibh0606@gmail.com" class="social-icon">
-                <i class="fas fa-envelope"></i>
-            </a>
-        </div>
-        <div class="footer">
-            © 2025 Mahbub Al Hasan Akib. Hablu the great 😁
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script>
+        // Initialize pages
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+            createStarBackground();
+            createRocketBackground();
+            createSatellites();
+            createMeteorites();
+            createMoon();
+            loadPosts();
+        });
+
+        function showPage(pageId) {
+            if (pageId === 'home') {
+                document.getElementById('home-page').style.display = 'block';
+                document.getElementById('blog-page').style.display = 'none';
+            } else if (pageId === 'blog') {
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('blog-page').style.display = 'block';
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            showPage('home');
+            setTimeout(() => {
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
         function createStarBackground() {
             const background = document.getElementById('starBackground');
             const isMobile = window.innerWidth <= 768;
@@ -711,20 +935,95 @@
             moon.style.left = '80%';
         }
 
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
         function toggleNav() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
 
-        createStarBackground();
-        createRocketBackground();
-        createSatellites();
-        createMeteorites();
-        createMoon();
+        function openModal() {
+            document.getElementById('createPostModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('createPostModal').style.display = 'none';
+            clearModalInputs();
+        }
+
+        function clearModalInputs() {
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogContent').value = '';
+            document.getElementById('blogTag').value = '';
+            document.getElementById('blogImage').value = '';
+        }
+
+        function submitPost() {
+            const title = document.getElementById('blogTitle').value.trim();
+            const content = document.getElementById('blogContent').value.trim();
+            const tag = document.getElementById('blogTag').value.trim();
+            const imageInput = document.getElementById('blogImage');
+            const imageFile = imageInput.files[0];
+
+            if (!title || !content || !tag) {
+                alert('Please fill in all required fields (Title, Content, Tag).');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                const newPost = {
+                    id: Date.now(),
+                    title,
+                    content,
+                    tag,
+                    image: imageData || null,
+                    icon: getBlogIcon(tag)
+                };
+
+                savePost(newPost);
+                renderPost(newPost);
+                closeModal();
+            };
+
+            if (imageFile) {
+                reader.readAsDataURL(imageFile);
+            } else {
+                reader.onload({ target: { result: null } });
+            }
+        }
+
+        function getBlogIcon(tag) {
+            const tagLower = tag.toLowerCase();
+            if (tagLower.includes('programming')) return '💻';
+            if (tagLower.includes('space')) return '🚀';
+            if (tagLower.includes('history')) return '📖';
+            return '📝';
+        }
+
+        function savePost(post) {
+            let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            posts.push(post);
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+        }
+
+        function renderPost(post) {
+            const blogGrid = document.getElementById('blogGridFull');
+            const blogCard = document.createElement('div');
+            blogCard.classList.add('blog-card');
+            blogCard.innerHTML = `
+                <div class="blog-icon">${post.icon}</div>
+                ${post.image ? `<img src="${post.image}" alt="${post.title}" class="blog-image">` : ''}
+                <h3 class="blog-title">${post.title}</h3>
+                <p>${post.content}</p>
+                <span class="topic-tag">${post.tag}</span>
+            `;
+            blogGrid.insertBefore(blogCard, blogGrid.firstChild);
+        }
+
+        function loadPosts() {
+            let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            posts.forEach(renderPost);
+        }
 
         window.addEventListener('resize', () => {
             const starBackground = document.getElementById('starBackground');
