@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Mahbub Al Hasan Akib - Blog</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'monospace', sans-serif;
+            background-color: black;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+            overscroll-behavior: none;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .comet {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            transform: rotate(-30deg);
+        }
+
+        .rocket {
+            position: absolute;
+            font-size: 24px;
+        }
+
+        .moon {
+            position: absolute;
+            font-size: 80px;
+            animation: glow 3s infinite alternate;
+        }
+
+        .satellite {
+            position: absolute;
+            font-size: 18px;
+            animation: orbit 12s linear infinite;
+        }
+
+        .meteorite {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+            animation: meteor 6s linear infinite;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 16px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 16px rgba(255, 255, 255, 0.8), 0 0 32px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        @keyframes orbit {
+            0% {
+                transform: rotate(0deg) translateX(80px) rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg) translateX(80px) rotate(360deg);
+            }
+        }
+
+        @keyframes meteor {
+            0% {
+                transform: translateX(-100%) translateY(-100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: none;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #06b6d4;
+            transition: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 0 0.5rem;
+            font-size: 1rem;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #06b6d4;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.4rem;
+            color: white;
+            cursor: pointer;
+            transition: none;
+        }
+
+        .blog {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #06b6d4;
+            font-size: 1.6rem;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .blog-card {
+            background-color: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .blog-card:hover {
+            border-color: #06b6d4;
+        }
+
+        .blog-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-title {
+            color: #06b6d4;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .topic-tag {
+            background-color: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            margin: 0.2rem;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .blog-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .create-post-btn {
+            display: block;
+            margin: 1rem auto;
+            background-color: #06b6d4;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .create-post-btn:hover {
+            background-color: #0891b2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(17, 24, 39, 0.9);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #06b6d4;
+        }
+
+        .modal-content h2 {
+            color: #06b6d4;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 0.3rem;
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'monospace', sans-serif;
+        }
+
+        .modal-content textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .modal-content input[type="file"] {
+            padding: 0;
+        }
+
+        .modal-content .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .modal-content button {
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .modal-content .submit-btn {
+            background-color: #06b6d4;
+            color: black;
+        }
+
+        .modal-content .submit-btn:hover {
+            background-color: #0891b2;
+        }
+
+        .modal-content .cancel-btn {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .modal-content .cancel-btn:hover {
+            background-color: #4b5563;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.6);
+            padding: 0.8rem;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            font-size: 1.4rem;
+            text-decoration: none;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #06b6d4;
+        }
+
+        .footer {
+            background-color: black;
+            color: #9ca3af;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.8rem;
+                position: sticky;
+                animation: none;
+                transition: none;
+            }
+
+            .logo {
+                animation: none;
+                transition: none;
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                transition: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 0.5rem 0;
+                font-size: 0.95rem;
+                transition: none;
+            }
+
+            .nav-links a:hover {
+                transform: none;
+            }
+
+            .menu-icon {
+                display: block;
+                position: absolute;
+                top: 0.8rem;
+                right: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .blog-card {
+                max-width: 100%;
+            }
+
+            .moon {
+                font-size: 60px;
+            }
+
+            .satellite {
+                font-size: 16px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .blog-card {
+                padding: 0.8rem;
+            }
+
+            .blog-title {
+                font-size: 1rem;
+            }
+
+            .topic-tag {
+                font-size: 0.8rem;
+            }
+
+            .social-icon {
+                font-size: 1.2rem;
+            }
+
+            .footer {
+                font-size: 0.8rem;
+            }
+
+            .moon {
+                font-size: 50px;
+            }
+
+            .satellite {
+                font-size: 14px;
+            }
+
+            .create-post-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .modal-content button {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.8rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="starBackground"></div>
+    <div class="background" id="rocketBackground"></div>
+    <div class="moon" id="moon">🌕</div>
+    <div class="satellite" id="satellite1">🛰️</div>
+    <div class="satellite" id="satellite2">🛰️</div>
+
+    <nav class="navbar">
+        <div class="logo">🚀 Mahbub Al Hasan Akib</div>
+        <div class="menu-icon" onclick="toggleNav()">☰</div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#projects">Projects</a>
+            <a href="blog.html">Blog</a>
+            <a href="index.html#skills">Skills</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="blog" class="blog">
+        <h2 class="section-title">📚 Thoughts & Reflections</h2>
+        <button class="create-post-btn" onclick="openModal()">Create Post ✍️</button>
+        <div class="blog-grid" id="blogGrid">
+            <div class="blog-card">
+                <div class="blog-icon">📖</div>
+                <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
+                <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
+                <span class="topic-tag">Islamic History</span>
+            </div>
+            <div class="blog-card">
+                <div class="blog-icon">💻</div>
+                <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
+                <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
+                <span class="topic-tag">Programming</span>
+            </div>
+            <div class="blog-card">
+                <div class="blog-icon">🚀</div>
+                <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
+                <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
+                <span class="topic-tag">Space</span>
+            </div>
+        </div>
+    </section>
+
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <h2>Create New Blog Post</h2>
+            <input type="text" id="blogTitle" placeholder="Blog Title" required>
+            <textarea id="blogContent" placeholder="Write your blog content here..." required></textarea>
+            <input type="text" id="blogTag" placeholder="Topic Tag (e.g., Programming)" required>
+            <input type="file" id="blogImage" accept="image/*">
+            <div class="btn-container">
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="submit-btn" onclick="submitPost()">Publish</button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div class="social-icons">
+            <a href="https://github.com/akib-pixel" class="social-icon" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/mahbub-al-hasan-akib-b85a5a2a0/" class="social-icon" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://x.com/akib18773" class="social-icon" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.facebook.com/akib.hasan.7587370" class="social-icon" target="_blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/mabub_al_hasan_akib/?hl=en" class="social-icon" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:akibh0606@gmail.com" class="social-icon">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <div class="footer">
+            © 2025 Mahbub Al Hasan Akib. Hablu the great 😁
+        </div>
+    </footer>
+
+    <script>
+        function createStarBackground() {
+            const background = document.getElementById('starBackground');
+            const isMobile = window.innerWidth <= 768;
+            const starCount = isMobile ? 100 : 200;
+            const cometCount = isMobile ? 2 : 3;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const size = Math.random() * 1.5;
+                const delay = Math.random() * 4;
+
+                star.style.left = `${x}px`;
+                star.style.top = `${y}px`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+
+                background.appendChild(star);
+
+                gsap.to(star, {
+                    scale: 1.3,
+                    opacity: 0.4,
+                    repeat: -1,
+                    yoyo: true,
+                    duration: 2,
+                    delay: delay
+                });
+            }
+
+            for (let i = 0; i < cometCount; i++) {
+                const comet = document.createElement('div');
+                comet.classList.add('comet');
+                const y = Math.random() * window.innerHeight;
+                const length = Math.random() * 150 + 50;
+                const speed = Math.random() * 4 + 2;
+
+                comet.style.top = `${y}px`;
+                comet.style.width = `${length}px`;
+
+                background.appendChild(comet);
+
+                gsap.fromTo(comet, 
+                    { x: -100, opacity: 0.8 }, 
+                    {
+                        x: window.innerWidth + 100,
+                        opacity: 0,
+                        repeat: -1,
+                        duration: speed,
+                        delay: i * 2
+                    }
+                );
+            }
+        }
+
+        function createRocketBackground() {
+            const background = document.getElementById('rocketBackground');
+            const isMobile = window.innerWidth <= 768;
+            const rocketCount = isMobile ? 1 : 2;
+
+            for (let i = 0; i < rocketCount; i++) {
+                const rocket = document.createElement('div');
+                rocket.classList.add('rocket');
+                rocket.textContent = '🚀';
+                const x = Math.random() * window.innerWidth;
+                const speed = Math.random() * 4 + 2;
+                const delay = Math.random() * 2;
+
+                rocket.style.left = `${x}px`;
+                rocket.style.top = `${window.innerHeight}px`;
+
+                background.appendChild(rocket);
+
+                gsap.to(rocket, {
+                    y: -100,
+                    x: [x, x + 30, x - 30],
+                    opacity: [0, 0.8, 0],
+                    repeat: -1,
+                    duration: speed * 2,
+                    delay: delay,
+                    ease: "power1.inOut"
+                });
+            }
+        }
+
+        function createSatellites() {
+            const satellite1 = document.getElementById('satellite1');
+            const satellite2 = document.getElementById('satellite2');
+            satellite1.style.top = '20%';
+            satellite1.style.left = '20%';
+            satellite2.style.top = '40%';
+            satellite2.style.left = '60%';
+        }
+
+        function createMeteorites() {
+            const isMobile = window.innerWidth <= 768;
+            const meteoriteCount = isMobile ? 2 : 3;
+
+            for (let i = 0; i < meteoriteCount; i++) {
+                const meteorite = document.createElement('div');
+                meteorite.classList.add('meteorite');
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const speed = Math.random() * 4 + 2;
+                const delay = Math.random() * 2;
+
+                meteorite.style.left = `${x}px`;
+                meteorite.style.top = `${y}px`;
+
+                document.body.appendChild(meteorite);
+
+                gsap.to(meteorite, {
+                    x: window.innerWidth + 50,
+                    y: window.innerHeight + 50,
+                    opacity: 0,
+                    repeat: -1,
+                    duration: speed,
+                    delay: delay,
+                    ease: "power1.inOut"
+                });
+            }
+        }
+
+        function createMoon() {
+            const moon = document.getElementById('moon');
+            moon.style.top = '10%';
+            moon.style.left = '80%';
+        }
+
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function openModal() {
+            document.getElementById('createPostModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('createPostModal').style.display = 'none';
+            clearModalInputs();
+        }
+
+        function clearModalInputs() {
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogContent').value = '';
+            document.getElementById('blogTag').value = '';
+            document.getElementById('blogImage').value = '';
+        }
+
+        function submitPost() {
+            const title = document.getElementById('blogTitle').value.trim();
+            const content = document.getElementById('blogContent').value.trim();
+            const tag = document.getElementById('blogTag').value.trim();
+            const imageInput = document.getElementById('blogImage');
+            const imageFile = imageInput.files[0];
+
+            if (!title || !content || !tag) {
+                alert('Please fill in all required fields (Title, Content, Tag).');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                const newPost = {
+                    id: Date.now(),
+                    title,
+                    content,
+                    tag,
+                    image: imageData || null,
+                    icon: getBlogIcon(tag)
+                };
+
+                savePost(newPost);
+                renderPost(newPost);
+                closeModal();
+            };
+
+            if (imageFile) {
+                reader.readAsDataURL(imageFile);
+            } else {
+                reader.onload({ target: { result: null } });
+            }
+        }
+
+        function getBlogIcon(tag) {
+            const tagLower = tag.toLowerCase();
+            if (tagLower.includes('programming')) return '💻';
+            if (tagLower.includes('space')) return '🚀';
+            if (tagLower.includes('history')) return '📖';
+            return '📝';
+        }
+
+        function savePost(post) {
+            let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            posts.push(post);
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+        }
+
+        function renderPost(post) {
+            const blogGrid = document.getElementById('blogGrid');
+            const blogCard = document.createElement('div');
+            blogCard.classList.add('blog-card');
+            blogCard.innerHTML = `
+                <div class="blog-icon">${post.icon}</div>
+                ${post.image ? `<img src="${post.image}" alt="${post.title}" class="blog-image">` : ''}
+                <h3 class="blog-title">${post.title}</h3>
+                <p>${post.content}</p>
+                <span class="topic-tag">${post.tag}</span>
+            `;
+            blogGrid.insertBefore(blogCard, blogGrid.firstChild);
+        }
+
+        function loadPosts() {
+            let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            posts.forEach(renderPost);
+        }
+
+        createStarBackground();
+        createRocketBackground();
+        createSatellites();
+        createMeteorites();
+        createMoon();
+        loadPosts();
+
+        window.addEventListener('resize', () => {
+            const starBackground = document.getElementById('starBackground');
+            const rocketBackground = document.getElementById('rocketBackground');
+            starBackground.innerHTML = '';
+            rocketBackground.innerHTML = '';
+            createStarBackground();
+            createRocketBackground();
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.target.closest('.navbar') || e.target.closest('.nav-links')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
