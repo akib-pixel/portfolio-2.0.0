@@ -232,6 +232,7 @@
             padding: 1rem;
             text-align: center;
             transition: border-color 0.3s;
+            position: relative;
         }
 
         .project-card:hover, .blog-card:hover {
@@ -300,9 +301,13 @@
             border-color: #06b6d4;
         }
 
-        /* Blog Page Specific Styles */
-        .blog-page {
+        /* Page visibility styles */
+        .page {
             display: none;
+        }
+
+        .page.active {
+            display: block;
         }
         
         .blog-image {
@@ -327,6 +332,41 @@
 
         .create-post-btn:hover {
             background-color: #0891b2;
+        }
+
+        /* Delete button styles */
+        .delete-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            opacity: 0.8;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc2626;
+            opacity: 1;
+        }
+
+        .delete-btn:focus {
+            outline: 2px solid #ef4444;
+            outline-offset: 2px;
+        }
+
+        /* Hide delete button on default posts */
+        .blog-card.default-post .delete-btn {
+            display: none;
         }
 
         .modal {
@@ -407,6 +447,74 @@
         }
 
         .modal-content .cancel-btn:hover {
+            background-color: #4b5563;
+        }
+
+        /* Confirmation modal styles */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .confirm-modal-content {
+            background-color: rgba(17, 24, 39, 0.95);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #ef4444;
+            text-align: center;
+        }
+
+        .confirm-modal-content h3 {
+            color: #ef4444;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .confirm-modal-content p {
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+        }
+
+        .confirm-modal-content .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .confirm-modal-content button {
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-modal-content .confirm-delete-btn {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .confirm-modal-content .confirm-delete-btn:hover {
+            background-color: #dc2626;
+        }
+
+        .confirm-modal-content .confirm-cancel-btn {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .confirm-modal-content .confirm-cancel-btn:hover {
             background-color: #4b5563;
         }
 
@@ -505,6 +613,11 @@
                 width: 95%;
                 padding: 1rem;
             }
+
+            .confirm-modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -576,6 +689,25 @@
                 font-size: 0.8rem;
                 padding: 0.3rem 0.8rem;
             }
+
+            .delete-btn {
+                width: 25px;
+                height: 25px;
+                font-size: 0.7rem;
+            }
+
+            .confirm-modal-content {
+                padding: 1rem;
+            }
+
+            .confirm-modal-content h3 {
+                font-size: 1rem;
+            }
+
+            .confirm-modal-content button {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
         }
 
         @media (min-width: 1200px) {
@@ -614,13 +746,13 @@
     </nav>
 
     <!-- Home Page Content -->
-    <div id="home-page">
+    <div id="home-page" class="page active">
         <section id="home" class="hero">
-            <img src="./image/Remove background project-photoaidcom-cropped.png" alt="Mahbub Al Hasan Akib">
+            <img src="https://via.placeholder.com/120x120/06b6d4/ffffff?text=MA" alt="Mahbub Al Hasan Akib">
             <h1 class="hero-title">
                 🚀 Aspiring Electrical & Electronics Engineer | 🤖 Robotics & AI Enthusiast | 🔭 Space & Cosmology Explorer | 📚 Lifelong Learner of Programming, Machine Learning, Django | 💡 Innovating for a Better Tomorrow
             </h1>
-            <a href="#projects" class="explore-btn">Explore Projects 🛰️</a>
+            <a href="#projects" class="explore-btn" onclick="scrollToSection('projects')">Explore Projects 🛰️</a>
         </section>
 
         <section id="about" class="about">
@@ -660,23 +792,43 @@
         <section id="blog-section" class="blog">
             <h2 class="section-title">📚 Thoughts & Reflections</h2>
             <div class="blog-grid" id="blogGrid">
-                <div class="blog-card">
+                <div class="blog-card default-post">
                     <div class="blog-icon">📖</div>
                     <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
                     <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
                     <span class="topic-tag">Islamic History</span>
                 </div>
-                <div class="blog-card">
+                <div class="blog-card default-post">
                     <div class="blog-icon">💻</div>
                     <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
                     <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
                     <span class="topic-tag">Programming</span>
                 </div>
-                <div class="blog-card">
+                <div class="blog-card default-post">
                     <div class="blog-icon">🚀</div>
                     <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
                     <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
                     <span class="topic-tag">Space</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="about">
+            <h2 class="section-title">🛠️ Skills & Technologies</h2>
+            <div class="about-content">
+                <div class="technologies">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Machine Learning</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">ESP32</span>
+                    <span class="tech-tag">IoT</span>
+                    <span class="tech-tag">Robotics</span>
+                    <span class="tech-tag">Electronics</span>
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">Git</span>
+                    <span class="tech-tag">Linux</span>
                 </div>
             </div>
         </section>
@@ -709,32 +861,45 @@
     </div>
 
     <!-- Blog Page Content -->
-    <div id="blog-page" class="blog-page">
+    <div id="blog-page" class="page">
         <section id="blog" class="blog">
             <h2 class="section-title">📚 Thoughts & Reflections</h2>
             <button class="create-post-btn" onclick="openModal()">Create Post ✍️</button>
             <div class="blog-grid" id="blogGridFull">
-                <div class="blog-card">
+                <div class="blog-card default-post">
                     <div class="blog-icon">📖</div>
                     <h3 class="blog-title">Exploring Islamic Golden Age of Science</h3>
-                    <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period.</p>
+                    <p>A deep dive into the technological and scientific achievements of Muslim scholars during the medieval period. The Islamic Golden Age (8th to 13th centuries) was a period of remarkable scientific and technological advancement that laid the foundation for many modern discoveries.</p>
                     <span class="topic-tag">Islamic History</span>
                 </div>
-                <div class="blog-card">
+                <div class="blog-card default-post">
                     <div class="blog-icon">💻</div>
                     <h3 class="blog-title">Machine Learning: Bridging Human and Computer Intelligence</h3>
-                    <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving.</p>
+                    <p>Reflections on how machine learning is transforming our understanding of intelligence and problem-solving. As we advance in AI technology, we're discovering new ways to augment human capabilities and solve complex problems.</p>
                     <span class="topic-tag">Programming</span>
                 </div>
-                <div class="blog-card">
+                <div class="blog-card default-post">
                     <div class="blog-icon">🚀</div>
                     <h3 class="blog-title">The Cosmic Perspective: Humanity's Journey to the Stars</h3>
-                    <p>A philosophical exploration of space exploration and its implications for human understanding of our universe.</p>
+                    <p>A philosophical exploration of space exploration and its implications for human understanding of our universe. From the first moon landing to Mars exploration, humanity continues to push the boundaries of what's possible.</p>
                     <span class="topic-tag">Space</span>
+                </div>
+                <div class="blog-card default-post">
+                    <div class="blog-icon">🔬</div>
+                    <h3 class="blog-title">The Future of Robotics in Everyday Life</h3>
+                    <p>Exploring how robotics technology is evolving to become an integral part of our daily lives, from smart homes to healthcare applications.</p>
+                    <span class="topic-tag">Robotics</span>
+                </div>
+                <div class="blog-card default-post">
+                    <div class="blog-icon">⚡</div>
+                    <h3 class="blog-title">Electronics Engineering: Building Tomorrow's Innovations</h3>
+                    <p>My journey in electronics engineering and how it shapes the way we interact with technology in the modern world.</p>
+                    <span class="topic-tag">Electronics</span>
                 </div>
             </div>
         </section>
 
+        <!-- Create Post Modal -->
         <div id="createPostModal" class="modal">
             <div class="modal-content">
                 <h2>Create New Blog Post</h2>
@@ -745,6 +910,18 @@
                 <div class="btn-container">
                     <button class="cancel-btn" onclick="closeModal()">Cancel</button>
                     <button class="submit-btn" onclick="submitPost()">Publish</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteConfirmModal" class="confirm-modal">
+            <div class="confirm-modal-content">
+                <h3>⚠️ Delete Post</h3>
+                <p>Are you sure you want to delete this blog post? This action cannot be undone.</p>
+                <div class="btn-container">
+                    <button class="confirm-cancel-btn" onclick="closeDeleteConfirmModal()">Cancel</button>
+                    <button class="confirm-delete-btn" onclick="confirmDeletePost()">Delete</button>
                 </div>
             </div>
         </div>
@@ -777,6 +954,9 @@
     </div>
 
     <script>
+        // Global variable to store the post ID to be deleted
+        let postToDelete = null;
+
         // Initialize pages
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
@@ -789,19 +969,33 @@
         });
 
         function showPage(pageId) {
-            if (pageId === 'home') {
-                document.getElementById('home-page').style.display = 'block';
-                document.getElementById('blog-page').style.display = 'none';
-            } else if (pageId === 'blog') {
-                document.getElementById('home-page').style.display = 'none';
-                document.getElementById('blog-page').style.display = 'block';
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show the selected page
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
             }
+
+            // Close mobile menu if open
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
         }
 
         function scrollToSection(sectionId) {
+            // First show the home page
             showPage('home');
+            
+            // Wait a bit for the page to show, then scroll
             setTimeout(() => {
-                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }, 100);
         }
 
@@ -994,15 +1188,18 @@
 
         function getBlogIcon(tag) {
             const tagLower = tag.toLowerCase();
-            if (tagLower.includes('programming')) return '💻';
-            if (tagLower.includes('space')) return '🚀';
-            if (tagLower.includes('history')) return '📖';
+            if (tagLower.includes('programming') || tagLower.includes('code')) return '💻';
+            if (tagLower.includes('space') || tagLower.includes('cosmic')) return '🚀';
+            if (tagLower.includes('history') || tagLower.includes('islamic')) return '📖';
+            if (tagLower.includes('robot') || tagLower.includes('ai')) return '🤖';
+            if (tagLower.includes('electronic') || tagLower.includes('engineering')) return '⚡';
+            if (tagLower.includes('science') || tagLower.includes('research')) return '🔬';
             return '📝';
         }
 
         function savePost(post) {
             let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
-            posts.push(post);
+            posts.unshift(post); // Add to beginning of array
             localStorage.setItem('blogPosts', JSON.stringify(posts));
         }
 
@@ -1010,7 +1207,11 @@
             const blogGrid = document.getElementById('blogGridFull');
             const blogCard = document.createElement('div');
             blogCard.classList.add('blog-card');
+            blogCard.setAttribute('data-post-id', post.id);
             blogCard.innerHTML = `
+                <button class="delete-btn" onclick="showDeleteConfirmModal(${post.id})" title="Delete post">
+                    <i class="fas fa-trash"></i>
+                </button>
                 <div class="blog-icon">${post.icon}</div>
                 ${post.image ? `<img src="${post.image}" alt="${post.title}" class="blog-image">` : ''}
                 <h3 class="blog-title">${post.title}</h3>
@@ -1025,6 +1226,37 @@
             posts.forEach(renderPost);
         }
 
+        function showDeleteConfirmModal(postId) {
+            postToDelete = postId;
+            document.getElementById('deleteConfirmModal').style.display = 'flex';
+        }
+
+        function closeDeleteConfirmModal() {
+            postToDelete = null;
+            document.getElementById('deleteConfirmModal').style.display = 'none';
+        }
+
+        function confirmDeletePost() {
+            if (postToDelete) {
+                deletePost(postToDelete);
+                closeDeleteConfirmModal();
+            }
+        }
+
+        function deletePost(postId) {
+            // Remove from localStorage
+            let posts = JSON.parse(localStorage.getItem('blogPosts') || '[]');
+            posts = posts.filter(post => post.id !== postId);
+            localStorage.setItem('blogPosts', JSON.stringify(posts));
+
+            // Remove from DOM
+            const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+            if (postElement) {
+                postElement.remove();
+            }
+        }
+
+        // Handle window resize
         window.addEventListener('resize', () => {
             const starBackground = document.getElementById('starBackground');
             const rocketBackground = document.getElementById('rocketBackground');
@@ -1034,11 +1266,26 @@
             createRocketBackground();
         });
 
+        // Prevent scrolling issues on mobile
         document.addEventListener('touchmove', (e) => {
             if (e.target.closest('.navbar') || e.target.closest('.nav-links')) {
                 e.preventDefault();
             }
         }, { passive: false });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+            const createModal = document.getElementById('createPostModal');
+            const deleteModal = document.getElementById('deleteConfirmModal');
+            
+            if (event.target === createModal) {
+                closeModal();
+            }
+            
+            if (event.target === deleteModal) {
+                closeDeleteConfirmModal();
+            }
+        });
     </script>
 </body>
 </html>
